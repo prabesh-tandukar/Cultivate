@@ -55,7 +55,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home habits={habits} />} />
         <Route path="/add" element={<AddHabit />} />
-        <Route path="/habit/:id" element={<HabitDetail />} />
+        <Route path="/habit/:id" element={<HabitDetail habits={habits} />} />
       </Routes>
     </>
   );
