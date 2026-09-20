@@ -53,7 +53,7 @@ export default function HabitDetail({ habits }) {
     } else if (level === 1) {
       return "#98FB98";
     } else if (level === 2) {
-      return "#90ee90";
+      return "#3CB371";
     } else if (level === 3) {
       return "#228b22";
     } else if (level === 4) {
@@ -62,6 +62,20 @@ export default function HabitDetail({ habits }) {
   }
 
   const days = getLast365Days();
+  const firstDay = new Date(days[0]);
+  const startOffset = firstDay.getDay();
+
+  const paddedDays = [];
+  for (let i = 0; i < startOffset; i++) {
+    paddedDays.push(null);
+  }
+  paddedDays.push(...days);
+
+  const weeks = [];
+  for (let i = 0; i < paddedDays.length; i += 7) {
+    weeks.push(paddedDays.slice(i, i + 7));
+  }
+  console.log(weeks);
 
   return (
     <>
@@ -69,28 +83,36 @@ export default function HabitDetail({ habits }) {
       <p>{current_habit.name}</p>
       <p>{current_habit.target}</p>
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "2px",
-          maxWidth: "700px",
-        }}
-      >
-        {days.map((day) => {
-          const level = getLevel(day);
-          return (
-            <div
-              key={day}
-              title={day}
-              style={{
-                width: "12px",
-                height: "12px",
-                backgroundColor: getColor(level),
-              }}
-            ></div>
-          );
-        })}
+      <div style={{ display: "flex", gap: "2px" }}>
+        {weeks.map((week, weekIndex) => (
+          <div
+            key={weekIndex}
+            style={{ display: "flex", flexDirection: "column", gap: "2px" }}
+          >
+            {week.map((day, dayIndex) => {
+              if (!day) {
+                return (
+                  <div
+                    key={dayIndex}
+                    style={{ width: "12px", height: "12px" }}
+                  ></div>
+                );
+              }
+              const level = getLevel(day);
+              return (
+                <div
+                  key={dayIndex}
+                  title={day}
+                  style={{
+                    width: "12px",
+                    height: "12px",
+                    backgroundColor: getColor(level),
+                  }}
+                ></div>
+              );
+            })}
+          </div>
+        ))}
       </div>
     </>
   );
