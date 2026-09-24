@@ -77,6 +77,38 @@ export default function HabitDetail({ habits }) {
   }
   console.log(weeks);
 
+  // Build month labels - one label per week column
+  let lastMonth = null; // tracks the last month we already labeled
+
+  const monthLabels = weeks.map((week, weekIndex) => {
+    const firstRealDay = week.find((day) => day !== null);
+
+    if (!firstRealDay) {
+      return null; // this week has no real days at all (shouldn't normally happen)
+    }
+
+    const monthIndex = new Date(firstRealDay).getMonth(); // 0-11
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    // ← YOUR LOGIC HERE:
+    // if monthIndex is different from lastMonth, this is a NEW month
+    // update lastMonth, and return the month name to display
+    // otherwise return null (empty label, same month as before)
+  });
+
   return (
     <>
       <h1>Habit Detail</h1>
