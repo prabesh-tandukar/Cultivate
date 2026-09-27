@@ -54,7 +54,10 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home habits={habits} />} />
-        <Route path="/add" element={<AddHabit />} />
+        <Route
+          path="/add"
+          element={<AddHabit habits={habits} setHabits={setHabits} />}
+        />
         <Route path="/habit/:id" element={<HabitDetail habits={habits} />} />
       </Routes>
     </>
