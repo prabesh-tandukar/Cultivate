@@ -1,25 +1,23 @@
+import { useState } from "react";
 export default function AddHabit({ habits, setHabits }) {
-  function testAdd() {
-    setHabits([
-      ...habits,
-      {
-        id: "4",
-        name: "Study",
-        type: "duration",
-        target: 120,
-        unit: "minutes",
-        color: "#c8f04d",
-        completions: {
-          "2026-09-11": 90,
-          "2026-09-12": 120,
-        },
-      },
-    ]);
-  }
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [target, setTarget] = useState(0);
+  const [unit, setUnit] = useState("");
+
   return (
     <>
       <h1>Add Habit</h1>
-      <button onClick={testAdd}>Add Test Habit</button>
+      <div>
+        <div>
+          <label htmlFor="">Enter the name of habit:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+      </div>
     </>
   );
 }
