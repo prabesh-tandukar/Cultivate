@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 
-export default function HabitDetail({ habits }) {
+export default function HabitDetail({ habits, logCompletion }) {
   const { id } = useParams();
   let current_habit;
 
@@ -29,6 +29,9 @@ export default function HabitDetail({ habits }) {
     return dates;
   }
 
+  function getToday() {
+    return getLast365Days().at(-1);
+  }
   function getLevel(dateStr) {
     const value = current_habit.completions[dateStr];
     if (!value) return 0;
@@ -64,6 +67,7 @@ export default function HabitDetail({ habits }) {
   const days = getLast365Days();
   const firstDay = new Date(days[0]);
   const startOffset = firstDay.getDay();
+  const today = getToday();
 
   const paddedDays = [];
   for (let i = 0; i < startOffset; i++) {
@@ -117,6 +121,7 @@ export default function HabitDetail({ habits }) {
   return (
     <>
       <h1>Habit Detail</h1>
+      <p>{today}</p>
       <p>{current_habit.name}</p>
       <p>{current_habit.target}</p>
 

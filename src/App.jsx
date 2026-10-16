@@ -43,6 +43,18 @@ export default function App() {
       },
     },
   ]);
+  function logCompletion(habitId, date, value) {
+    const newHabits = habits.map((habit) => {
+      if (habit.id === habitId) {
+        return {
+          ...habit,
+          completions: { ...habit.completions, [date]: value },
+        };
+      }
+      return habit;
+    });
+    setHabits(newHabits);
+  }
 
   return (
     <>
@@ -58,7 +70,12 @@ export default function App() {
           path="/add"
           element={<AddHabit habits={habits} setHabits={setHabits} />}
         />
-        <Route path="/habit/:id" element={<HabitDetail habits={habits} />} />
+        <Route
+          path="/habit/:id"
+          element={
+            <HabitDetail habits={habits} logCompletion={logCompletion} />
+          }
+        />
       </Routes>
     </>
   );
