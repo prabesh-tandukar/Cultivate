@@ -164,6 +164,11 @@ export default function HabitDetail({ habits, logCompletion }) {
           </div>
         ))}
       </div>
+      <div>
+        <form action="">
+          <input type="date" onChange={setLogDate} max={getToday} />
+        </form>
+      </div>
     </>
   );
 }
