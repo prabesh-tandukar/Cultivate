@@ -1,7 +1,11 @@
 import { useParams } from "react-router";
+import { useState } from "react";
 
 export default function HabitDetail({ habits, logCompletion }) {
   const { id } = useParams();
+  const [logDate, setLogDate] = useState(getToday());
+  const [logValue, setLogValue] = useState(0);
+
   let current_habit;
 
   for (const habit of habits) {
@@ -106,10 +110,6 @@ export default function HabitDetail({ habits, logCompletion }) {
       "Dec",
     ];
 
-    // ← YOUR LOGIC HERE:
-    // if monthIndex is different from lastMonth, this is a NEW month
-    // update lastMonth, and return the month name to display
-    // otherwise return null (empty label, same month as before)
     if (monthIndex !== lastMonth) {
       lastMonth = monthIndex;
       return monthNames[monthIndex];
@@ -165,9 +165,38 @@ export default function HabitDetail({ habits, logCompletion }) {
         ))}
       </div>
       <div>
-        <form action="">
-          <input type="date" onChange={setLogDate} max={getToday} />
-        </form>
+        <input
+          type="date"
+          value={logDate}
+          onChange={(e) => setLogDate(e.target.value)}
+          max={today}
+        />
+        {current_habit.type !== "yesno" && (
+          <>
+            <input
+              type="number"
+              value={logValue}
+              onChange={(e) => setLogValue(e.target.value)}
+            />
+            <button
+              onClick={() =>
+                logCompletion(current_habit.id, logDate, Number(logValue))
+              }
+            >
+              Mark Done
+            </button>
+          </>
+        )}
+
+        {current_habit.type === "yesno" && (
+          <button onClick={() => logCompletion(current_habit.id, logDate, 1)}>
+            Mark Done
+          </button>
+        )}
+
+        <button onClick={() => logCompletion(current_habit.id, logDate, 0)}>
+          Mark Undone
+        </button>
       </div>
     </>
   );
