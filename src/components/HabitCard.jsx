@@ -8,6 +8,7 @@ export default function HabitCard({ habit }) {
         <p>
           Target: {habit.target} {habit.unit}
         </p>
+        <p></p>
       </div>
     </Link>
   );
