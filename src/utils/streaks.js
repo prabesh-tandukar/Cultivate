@@ -11,3 +11,7 @@ export function previousDay(dateStr) {
 
   return `${yyyy}-${mm}-${dd}`;
 }
+
+export function isCompleted(habit, date) {
+  return habit.completions[date] > 0;
+}
