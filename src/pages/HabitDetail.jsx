@@ -84,7 +84,6 @@ export default function HabitDetail({ habits, logCompletion }) {
   for (let i = 0; i < paddedDays.length; i += 7) {
     weeks.push(paddedDays.slice(i, i + 7));
   }
-  console.log(weeks);
 
   let lastMonth = null; // tracks the last month
 
@@ -127,7 +126,7 @@ export default function HabitDetail({ habits, logCompletion }) {
       <p>{today}</p>
       <p>{current_habit.name}</p>
       <p>{current_habit.target}</p>
-      <p>Cuurent streak: {streak}</p>
+      <p>Current streak: {streak}</p>
 
       <div style={{ display: "flex", gap: "2px", marginBottom: "4px" }}>
         {monthLabels.map((label, i) => (
