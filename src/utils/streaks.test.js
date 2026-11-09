@@ -56,4 +56,16 @@ describe("getCurrentStreak", () => {
     };
     expect(getCurrentStreak(habit, "2026-11-08")).toBe(4);
   });
+  it("return current streak with today not logged yet", () => {
+    const habit = {
+      completions: {
+        "2026-11-07": 0,
+        "2026-11-06": 15,
+        "2026-11-05": 35,
+        "2026-11-04": 0,
+        "2026-11-03": 0,
+      },
+    };
+    expect(getCurrentStreak(habit, "2026-11-08")).toBe(2);
+  });
 });

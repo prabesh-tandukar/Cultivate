@@ -20,6 +20,9 @@ export function getCurrentStreak(habit, today) {
   let streak = 0;
   let day = today;
   let misses = 0;
+  if (!isCompleted(habit, day)) {
+    day = previousDay(day);
+  }
 
   while (misses < 2) {
     if (isCompleted(habit, day)) {
