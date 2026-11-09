@@ -44,4 +44,16 @@ describe("getCurrentStreak", () => {
     };
     expect(getCurrentStreak(anotherHabit, "2026-11-08")).toBe(0);
   });
+  it("return current streak for single missed day in between logged days", () => {
+    const habit = {
+      completions: {
+        "2026-11-08": 5,
+        "2026-11-07": 10,
+
+        "2026-11-05": 35,
+        "2026-11-04": 15,
+      },
+    };
+    expect(getCurrentStreak(habit, "2026-11-08")).toBe(4);
+  });
 });
