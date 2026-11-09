@@ -68,4 +68,25 @@ describe("getCurrentStreak", () => {
     };
     expect(getCurrentStreak(habit, "2026-11-08")).toBe(2);
   });
+  it("return current streak with two missed days resetting it", () => {
+    const habit = {
+      completions: {
+        "2026-11-05": 10,
+        "2026-11-04": 10,
+        "2026-11-03": 10,
+      },
+    };
+    expect(getCurrentStreak(habit, "2026-11-08")).toBe(0);
+  });
+  it("return streak across a month and year boundary", () => {
+    const habit = {
+      completions: {
+        "2025-12-30": 40,
+        "2025-12-31": 50,
+        "2026-01-01": 50,
+        "2026-01-02": 10,
+      },
+    };
+    expect(getCurrentStreak(habit, "2026-01-02")).toBe(4);
+  });
 });
