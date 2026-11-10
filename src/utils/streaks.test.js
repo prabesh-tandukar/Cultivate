@@ -109,4 +109,20 @@ describe("getBestStreak", () => {
     };
     expect(getBestStreak(habit, "2026-11-21")).toBe(3);
   });
+  it("return best streak if current streak is best", () => {
+    const habit = {
+      completions: {
+        "2026-11-08": 10,
+        "2026-11-07": 10,
+        "2026-11-06": 10,
+      },
+    };
+    expect(getBestStreak(habit, "2026-11-08")).toBe(3);
+  });
+  it("returns zero if nothing is logged", () => {
+    const habit = {
+      completions: {},
+    };
+    expect(getBestStreak(habit, "2026-11-08")).toBe(0);
+  });
 });
