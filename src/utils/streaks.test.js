@@ -4,6 +4,7 @@ import {
   isCompleted,
   getCurrentStreak,
   getBestStreak,
+  isRequired,
 } from "./streaks";
 
 describe("previousDay", () => {
@@ -124,5 +125,14 @@ describe("getBestStreak", () => {
       completions: {},
     };
     expect(getBestStreak(habit, "2026-11-08")).toBe(0);
+  });
+});
+
+describe("isRequired", () => {
+  it("returns true for a habit to be required for particular day", () => {
+    const habit = {
+      completions: {},
+    };
+    expect(isRequired(habit, "2026-11-08")).toBe(true);
   });
 });

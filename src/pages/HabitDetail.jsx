@@ -7,15 +7,15 @@ export default function HabitDetail({ habits, logCompletion }) {
   const [logDate, setLogDate] = useState(getToday());
   const [logValue, setLogValue] = useState(0);
 
-  let current_habit;
+  let currentHabit;
 
   for (const habit of habits) {
     if (habit.id === id) {
-      current_habit = habit;
+      currentHabit = habit;
     }
   }
 
-  if (!current_habit) return <p>Habit not found</p>;
+  if (!currentHabit) return <p>Habit not found</p>;
 
   function getLast365Days() {
     const dates = [];
@@ -38,10 +38,10 @@ export default function HabitDetail({ habits, logCompletion }) {
     return getLast365Days().at(-1);
   }
   function getLevel(dateStr) {
-    const value = current_habit.completions[dateStr];
+    const value = currentHabit.completions[dateStr];
     if (!value) return 0;
-    if (current_habit.type === "yesno") return 4;
-    const percent = (value / current_habit.target) * 100;
+    if (currentHabit.type === "yesno") return 4;
+    const percent = (value / currentHabit.target) * 100;
 
     if (percent >= 100) {
       return 4;
@@ -118,16 +118,16 @@ export default function HabitDetail({ habits, logCompletion }) {
     }
   });
 
-  const streak = getCurrentStreak(current_habit, today);
-  const bestStreak = getBestStreak(current_habit, today);
+  const currentStreak = getCurrentStreak(currentHabit, today);
+  const bestStreak = getBestStreak(currentHabit, today);
 
   return (
     <>
       <h1>Habit Detail</h1>
       <p>{today}</p>
-      <p>{current_habit.name}</p>
-      <p>{current_habit.target}</p>
-      <p>Current streak: {streak}</p>
+      <p>{currentHabit.name}</p>
+      <p>{currentHabit.target}</p>
+      <p>Current streak: {currentStreak}</p>
       <p>Best streak: {bestStreak}</p>
 
       <div style={{ display: "flex", gap: "2px", marginBottom: "4px" }}>
@@ -176,7 +176,7 @@ export default function HabitDetail({ habits, logCompletion }) {
           onChange={(e) => setLogDate(e.target.value)}
           max={today}
         />
-        {current_habit.type !== "yesno" && (
+        {currentHabit.type !== "yesno" && (
           <>
             <input
               type="number"
@@ -185,7 +185,7 @@ export default function HabitDetail({ habits, logCompletion }) {
             />
             <button
               onClick={() =>
-                logCompletion(current_habit.id, logDate, Number(logValue))
+                logCompletion(currentHabit.id, logDate, Number(logValue))
               }
             >
               Mark Done
@@ -193,13 +193,13 @@ export default function HabitDetail({ habits, logCompletion }) {
           </>
         )}
 
-        {current_habit.type === "yesno" && (
-          <button onClick={() => logCompletion(current_habit.id, logDate, 1)}>
+        {currentHabit.type === "yesno" && (
+          <button onClick={() => logCompletion(currentHabit.id, logDate, 1)}>
             Mark Done
           </button>
         )}
 
-        <button onClick={() => logCompletion(current_habit.id, logDate, 0)}>
+        <button onClick={() => logCompletion(currentHabit.id, logDate, 0)}>
           Mark Undone
         </button>
       </div>
