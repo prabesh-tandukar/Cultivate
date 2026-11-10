@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useState } from "react";
-import { getCurrentStreak } from "../utils/streaks";
+import { getCurrentStreak, getBestStreak } from "../utils/streaks";
 
 export default function HabitDetail({ habits, logCompletion }) {
   const { id } = useParams();
@@ -119,6 +119,7 @@ export default function HabitDetail({ habits, logCompletion }) {
   });
 
   const streak = getCurrentStreak(current_habit, today);
+  const bestStreak = getBestStreak(current_habit, today);
 
   return (
     <>
@@ -127,6 +128,7 @@ export default function HabitDetail({ habits, logCompletion }) {
       <p>{current_habit.name}</p>
       <p>{current_habit.target}</p>
       <p>Current streak: {streak}</p>
+      <p>Best streak: {bestStreak}</p>
 
       <div style={{ display: "flex", gap: "2px", marginBottom: "4px" }}>
         {monthLabels.map((label, i) => (
