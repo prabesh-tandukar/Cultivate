@@ -20,11 +20,16 @@ export function getCurrentStreak(habit, today) {
   let streak = 0;
   let day = today;
   let misses = 0;
+
   if (!isCompleted(habit, day)) {
     day = previousDay(day);
   }
 
   while (misses < 2) {
+    if (!isRequired(habit, day)) {
+      day = previousDay(day);
+      continue;
+    }
     if (isCompleted(habit, day)) {
       streak++;
       misses = 0;
@@ -35,4 +40,36 @@ export function getCurrentStreak(habit, today) {
     day = previousDay(day);
   }
   return streak;
+}
+
+export function getBestStreak(habit, today) {
+  const earliest = Object.keys(habit.completions).sort()[0];
+  let bestStreak = 0;
+  let currentRun = 0;
+  let misses = 0;
+  let day = today;
+  while (earliest <= day) {
+    if (!isRequired(habit, day)) {
+      day = previousDay(day);
+      continue;
+    }
+    if (isCompleted(habit, day)) {
+      currentRun++;
+      misses = 0;
+      if (currentRun > bestStreak) {
+        bestStreak = currentRun;
+      }
+    } else {
+      misses++;
+      if (misses === 2) {
+        currentRun = 0;
+      }
+    }
+    day = previousDay(day);
+  }
+  return bestStreak;
+}
+
+export function isRequired(habit, date) {
+  return true;
 }
