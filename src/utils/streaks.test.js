@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { previousDay, isCompleted, getCurrentStreak } from "./streaks";
+import {
+  previousDay,
+  isCompleted,
+  getCurrentStreak,
+  getBestStreak,
+} from "./streaks";
 
 describe("previousDay", () => {
   it("returns the day before an ordinary date", () => {
@@ -88,5 +93,20 @@ describe("getCurrentStreak", () => {
       },
     };
     expect(getCurrentStreak(habit, "2026-01-02")).toBe(4);
+  });
+});
+
+describe("getBestStreak", () => {
+  it("return best streak between long gap dates", () => {
+    const habit = {
+      completions: {
+        "2026-11-21": 10,
+        "2026-11-20": 20,
+        "2026-11-03": 15,
+        "2026-11-02": 50,
+        "2026-11-01": 40,
+      },
+    };
+    expect(getBestStreak(habit, "2026-11-21")).toBe(3);
   });
 });
