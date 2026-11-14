@@ -71,11 +71,10 @@ export function getBestStreak(habit, today) {
 }
 
 export function isRequired(habit, date) {
-  if (Object.hasOwn(habit, 'restDays')){
-    if(habit.restDays.includes(date)){
+  if (Object.hasOwn(habit, "restDays")) {
+    if (habit.restDays.includes(date) && !isCompleted(habit, date)) {
       return false;
     }
   }
-   return true;
- 
+  return true;
 }
