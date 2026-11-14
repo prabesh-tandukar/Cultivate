@@ -71,5 +71,11 @@ export function getBestStreak(habit, today) {
 }
 
 export function isRequired(habit, date) {
-  return true;
+  if (Object.hasOwn(habit, 'restDays')){
+    if(habit.restDays.includes(date)){
+      return false;
+    }
+  }
+   return true;
+ 
 }
