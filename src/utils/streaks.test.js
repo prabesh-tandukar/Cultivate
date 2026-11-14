@@ -184,4 +184,13 @@ describe("isRequired", () => {
     };
     expect(isRequired(habit, "2026-11-05")).toBe(false);
   });
+  it("return true for rest day that was logged", () => {
+    const habit = {
+      restDays: ["2026-11-08"],
+      completions: {
+        "2026-11-08": 50,
+      },
+    };
+    expect(isRequired(habit, "2026-11-08")).toBe(true);
+  });
 });
