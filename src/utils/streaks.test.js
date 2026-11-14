@@ -95,6 +95,16 @@ describe("getCurrentStreak", () => {
     };
     expect(getCurrentStreak(habit, "2026-01-02")).toBe(4);
   });
+  it("returns current streak with rest day in between dates", () => {
+    const habit = {
+      restDays: ["2026-11-07"],
+      completions: {
+        "2026-11-08": 50,
+        "2026-11-06": 50,
+      },
+    };
+    expect(getCurrentStreak(habit, "2026-11-08")).toBe(2);
+  });
 });
 
 describe("getBestStreak", () => {
@@ -126,6 +136,16 @@ describe("getBestStreak", () => {
     };
     expect(getBestStreak(habit, "2026-11-08")).toBe(0);
   });
+  it("returns best streak for a rest day added", () => {
+    const habit = {
+      restDays: ["2026-11-07"],
+      completions: {
+        "2026-11-08": 50,
+        "2026-11-06": 10,
+      },
+    };
+    expect(getBestStreak(habit, "2026-11-08")).toBe(2);
+  });
 });
 
 describe("isRequired", () => {
@@ -134,5 +154,11 @@ describe("isRequired", () => {
       completions: {},
     };
     expect(isRequired(habit, "2026-11-08")).toBe(true);
+  });
+  it("returns false for a rest day", () => {
+    const habit = {
+      restDays: ["2026-11-05"],
+    };
+    expect(isRequired(habit, "2026-11-05")).toBe(false);
   });
 });
