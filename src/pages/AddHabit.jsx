@@ -22,6 +22,7 @@ export default function AddHabit({ habits, setHabits }) {
       unit: unit,
       color: "#4ade80",
       completions: {},
+      restDays: [],
     };
 
     //adding new habit to existing habit
