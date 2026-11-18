@@ -1,3 +1,6 @@
-export function normalizeHabit {
-    
+export function normalizeHabit(habit) {
+  return {
+    restDays: [],
+    ...habit,
+  };
 }
