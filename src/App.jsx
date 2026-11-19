@@ -3,12 +3,14 @@ import Home from "./pages/home";
 import AddHabit from "./pages/AddHabit";
 import HabitDetail from "./pages/HabitDetail";
 import { useState, useEffect } from "react";
+import { normalizeHabit } from "./utils/normalizeHabit";
 
 export default function App() {
   const [habits, setHabits] = useState(() => {
     let storedHabits = localStorage.getItem("habits");
     if (storedHabits) {
-      return JSON.parse(storedHabits);
+      let curr_habits = JSON.parse(storedHabits);
+      return curr_habits.map((habit) => normalizeHabit(habit));
     } else {
       return [];
     }
