@@ -39,6 +39,14 @@ export default function HabitDetail({ habits, logCompletion, toggleRestDay }) {
   }
   function getLevel(dateStr) {
     const value = currentHabit.completions[dateStr];
+    let isRestDay = false;
+    if (currentHabit.restDays.includes(dateStr)) {
+      isRestDay = true;
+    }
+    if (isRestDay && !value) {
+      return 5;
+    }
+
     if (!value) return 0;
     if (currentHabit.type === "yesno") return 4;
     const percent = (value / currentHabit.target) * 100;
@@ -66,6 +74,8 @@ export default function HabitDetail({ habits, logCompletion, toggleRestDay }) {
       return "#228b22";
     } else if (level === 4) {
       return "#006400";
+    } else if (level === 5) {
+      return "#5981cc";
     }
   }
 
