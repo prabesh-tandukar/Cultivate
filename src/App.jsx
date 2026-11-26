@@ -28,6 +28,27 @@ export default function App() {
     setHabits(newHabits);
   }
 
+  function toggleRestDay(habitId, date) {
+    const newHabits = habits.map((habit) => {
+      if (habit.id === habitId) {
+        if (!habit.restDays.includes(date)) {
+          return {
+            ...habit,
+            restDays: [...habit.restDays, date],
+          };
+        } else {
+          return {
+            ...habit,
+            restDays: habit.restDays.filter((d) => d !== date),
+          };
+        }
+      }
+
+      return habit;
+    });
+    setHabits(newHabits);
+  }
+
   useEffect(() => {
     localStorage.setItem("habits", JSON.stringify(habits));
   }, [habits]);
@@ -49,7 +70,11 @@ export default function App() {
         <Route
           path="/habit/:id"
           element={
-            <HabitDetail habits={habits} logCompletion={logCompletion} />
+            <HabitDetail
+              habits={habits}
+              logCompletion={logCompletion}
+              toggleRestDay={toggleRestDay}
+            />
           }
         />
       </Routes>

@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import { useState } from "react";
 import { getCurrentStreak, getBestStreak } from "../utils/streaks";
 
-export default function HabitDetail({ habits, logCompletion }) {
+export default function HabitDetail({ habits, logCompletion, toggleRestDay }) {
   const { id } = useParams();
   const [logDate, setLogDate] = useState(getToday());
   const [logValue, setLogValue] = useState(0);
@@ -201,6 +201,9 @@ export default function HabitDetail({ habits, logCompletion }) {
 
         <button onClick={() => logCompletion(currentHabit.id, logDate, 0)}>
           Mark Undone
+        </button>
+        <button onClick={() => toggleRestDay(currentHabit.id, logDate)}>
+          Mark today as rest day
         </button>
       </div>
     </>
